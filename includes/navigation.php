@@ -21,10 +21,11 @@
 
                         while ($row = mysqli_fetch_assoc($select_all_categories_query)) {
                             $cat_title = $row['cat_title'];
-                            echo "<li><a aref='#'>$cat_title</a></li>";
+                            echo "<li><a href='#'>$cat_title</a></li>";
                         }
 
                     ?>
+                    <li><a href='admin'>Admin</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
