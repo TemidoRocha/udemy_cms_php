@@ -1,6 +1,6 @@
+<?php ob_start(); ?> <!-- this is responsible to buffer in order to send al the page at the same time -->
 <?php include 'functions.php' ?>
 <?php include "../includes/db.php" ?>
-<?php ob_start(); ?> <!-- this is responsible to buffer in order to send al the page at the same time -->
 
 <!DOCTYPE html>
 <html lang="en">

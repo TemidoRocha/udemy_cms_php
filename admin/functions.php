@@ -1,5 +1,14 @@
 <?php
 
+function confirmQuery($result)
+{
+    global $connection;
+    
+    if (!$result) {
+        die("query failed" . msqli_error($connection));
+    }
+}
+
 function insert_categories()
 {
     global $connection;
