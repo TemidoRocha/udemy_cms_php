@@ -2,7 +2,7 @@
   if (isset($_POST['create_post'])) {
       $post_title =  $_POST['post_title'];
       $post_author =  $_POST['post_author'];
-      $post_category_id =  $_POST['post_category_id'];
+      $post_category_id =  $_POST['post_category'];
       $post_status =  $_POST['post_status'];
 
       $post_image =  $_FILES['image']['name'];
@@ -35,8 +35,21 @@
       </div>
 
       <div class="form-group">
-        <label for="post_category_id">Post Category Id</label>
-        <input type="text" class="form-control" name="post_category_id">
+      <select name="post_category" id="">
+          <?php
+            $query = "SELECT * FROM categories";
+            $select_category_id = mysqli_query($connection, $query);
+
+            confirmQuery($select_category_id);
+            
+            while ($row = mysqli_fetch_assoc($select_category_id)) {
+                $cat_id = $row['cat_id'];
+                $cat_title = $row['cat_title'];
+                
+                echo "<option value='$cat_id'>$cat_title</option>";
+            }
+                ?>
+        </select>
       </div>
       
       <div class="form-group">

@@ -22,26 +22,32 @@
           if (isset($_POST['update_post'])) {
               $id_to_edit = $_GET['p_id'];
               $post_title = $_POST['post_title'];
+              $post_author = $_POST['post_author'];
               $post_category_id = $_POST['post_category'];
               $post_status = $_POST['post_status'];
-    
-              // $post_image = $_FILES['image']['name'];
-              // $post_image_temp = $_FILES['image']['tmp_name'];
-    
-    
+              $post_image = $_FILES['image']['name'];
+              $post_image_temp = $_FILES['image']['tmp_name'];
               $post_tags = $_POST['post_tags'];
               $post_content = $_POST['post_content'];
-              $post_date = date('d-m-y');
 
        
-              // move_uploaded_file($post_image_temp, "../images/$post_image");
+              move_uploaded_file($post_image_temp, "../images/$post_image");
        
+              if (empty($post_image)) {
+                  $query = "SELECT * FROM posts WHERE post_id = $id_to_edit ";
+                  $select_image = mysqli_query($connection, $query);
+                    
+                  while ($row = mysqli_fetch_array($select_image)) {
+                      $post_image = $row['post_image'];
+                  }
+              }
        
-              $query_update = "UPDATTE posts SET ";
+              $query_update = "UPDATE posts SET ";
               $query_update .= "post_category_id = '$post_category_id', ";
               $query_update .= "post_title = '$post_title', ";
+              $query_update .= "post_author = '$post_author', ";
               $query_update .= "post_date = now(), ";
-              // $query_update .= "post_image = '$post_image', ";
+              $query_update .= "post_image = '$post_image', ";
               $query_update .= "post_content = '$post_content', ";
               $query_update .= "post_tags = '$post_tags', ";
               $query_update .= "post_status = '$post_status' ";
@@ -50,7 +56,8 @@
                   
               $post_update_query = mysqli_query($connection, $query_update);
                 
-              // confirmQuery($post_update_query);
+              confirmQuery($post_update_query);
+              // header("Location: posts.php");
           }
       ?>
 
@@ -76,7 +83,7 @@
                 $cat_id = $row['cat_id'];
                 $cat_title = $row['cat_title'];
                 
-                echo "<option value='$cat_title'>$cat_title</option>";
+                echo "<option value='$cat_id'>$cat_title</option>";
             }
                 ?>
         </select>
@@ -94,6 +101,10 @@
       
       <div class="form-group">
       <img src="./images/<?php echo $post_image; ?>" width='100' alt='<?php echo $post_title; ?>' >
+      </div>
+      <div class="form-group">
+         <label for="post_image">Post Image</label>
+          <input type="file"  name="image">
       </div>
       
       <div class="form-group">
