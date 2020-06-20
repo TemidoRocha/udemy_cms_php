@@ -9,6 +9,7 @@
               <th>Image</th>
               <th>Tags</th>
               <th>Comments</th>
+              <th>Comments Count</th>
               <th>Date</th>
               <th>Edit</th>
               <th>Delete</th>
